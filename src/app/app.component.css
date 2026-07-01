@@ -1,0 +1,20 @@
+.loading-message,
+.error-message {
+  max-width: 920px;
+  margin: 24px auto;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loading-message {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.error-message {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}

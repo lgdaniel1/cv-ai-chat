@@ -1,138 +1,93 @@
-<main class="cv-page">
-  <section class="cv-header">
-    <h1>Daniel Lopez CV</h1>
-    <p class="subtitle">Senior Software Engineer</p>
+@if (isLoading) {
+  <p class="loading-message">Fetching CV from backend...</p>
+}
 
-    <p class="summary">
-      Senior Software Engineer with 13+ years of experience delivering enterprise software solutions
-      across logistics, consulting and industrial sectors. Recognized for rapidly mastering complex systems,
-      taking technical ownership and driving projects from concept to production.
-    </p>
-  </section>
+@if (errorMessage) {
+  <p class="error-message">{{ errorMessage }}</p>
+}
 
-  <section class="cv-section">
-    <h2>Work Experience</h2>
-
-    <article class="job">
-      <div class="job-header">
-        <div>
-          <h3>Senior Software Engineer</h3>
-          <p class="company">Zetes GmbH · Hamburg, Germany</p>
-        </div>
-        <p class="date">Feb 2021 – Present</p>
-      </div>
-
-      <ul>
-        <li>Technical owner of a multi-tenant device lifecycle management platform.</li>
-        <li>Designed backend services and Angular applications for business-critical processes.</li>
-        <li>Led architectural decisions and ensured long-term maintainability.</li>
-        <li>Performed code reviews and mentored junior developers.</li>
-        <li>Used Claude Code and GitHub Copilot to accelerate development.</li>
-      </ul>
-    </article>
-
-    <article class="job">
-      <div class="job-header">
-        <div>
-          <h3>Founder</h3>
-          <p class="company">Escape VR · Seville, Spain</p>
-        </div>
-        <p class="date">Nov 2018 – Mar 2020</p>
-      </div>
-
-      <ul>
-        <li>Founded and operated one of the first VR escape room businesses in Spain.</li>
-        <li>Led marketing, finance, operations and strategic planning.</li>
-        <li>Achieved profitability within months and maintained 5-star customer reviews.</li>
-      </ul>
-    </article>
-
-    <article class="job">
-      <div class="job-header">
-        <div>
-          <h3>Freelancer Software Engineer</h3>
-          <p class="company">Deutsche Bank AG · Frankfurt, Germany</p>
-        </div>
-        <p class="date">Nov 2017 – Nov 2018</p>
-      </div>
-
-      <ul>
-        <li>Developed and maintained a high-performance backend API for enterprise reporting.</li>
-        <li>Worked autonomously as an external consultant with full technical ownership.</li>
-      </ul>
-    </article>
-
-    <article class="job">
-      <div class="job-header">
-        <div>
-          <h3>Software Engineer / Technical Consultant</h3>
-          <p class="company">Phat Consulting GmbH · Hamburg, Germany</p>
-        </div>
-        <p class="date">Aug 2014 – Oct 2017</p>
-      </div>
-
-      <ul>
-        <li>Implemented enterprise workflow automation platforms based on Microsoft SCCM.</li>
-        <li>Delivered around ten enterprise implementations for large customers.</li>
-        <li>Led customer workshops and translated business requirements into workflow solutions.</li>
-      </ul>
-    </article>
-
-    <article class="job">
-      <div class="job-header">
-        <div>
-          <h3>Software Developer</h3>
-          <p class="company">Conergy AG · Hamburg, Germany</p>
-        </div>
-        <p class="date">Feb 2013 – Feb 2014</p>
-      </div>
-
-      <ul>
-        <li>Developed frontend and backend features for an internal photovoltaic estimation platform.</li>
-        <li>Contributed to cloud migration and enterprise web infrastructure initiatives.</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="cv-grid">
-    <section class="cv-section">
-      <h2>Education</h2>
-      <p><strong>Bachelor of Engineering in Computer Engineering</strong></p>
-      <p>Universidad de Sevilla · Graduation Year: 2012</p>
+@if (cv) {
+  <main class="cv-page">
+    <section class="cv-header">
+      <h1>{{ cv.personalInfo.name }}</h1>
+      <p class="subtitle">{{ cv.personalInfo.title }}</p>
+      <p class="summary">{{ cv.professionalSummary }}</p>
     </section>
 
     <section class="cv-section">
-      <h2>Languages</h2>
-      <ul>
-        <li>Spanish — Native</li>
-        <li>English — Professional</li>
-        <li>German — Professional</li>
-      </ul>
+      <h2>Work Experience</h2>
+
+      @for (job of cv.workExperience; track job.id) {
+        <article class="job">
+          <div class="job-header">
+            <div>
+              <h3>{{ job.role }}</h3>
+              <p class="company">{{ job.company }} · {{ job.location }}</p>
+            </div>
+            <p class="date">{{ job.periodLabel }}</p>
+          </div>
+
+          <ul>
+            @for (highlight of job.highlights; track highlight) {
+              <li>{{ highlight }}</li>
+            }
+          </ul>
+        </article>
+      }
     </section>
-  </section>
 
-  <section class="cv-section">
-    <h2>Technical Skills</h2>
+    <section class="cv-grid">
+      <section class="cv-section">
+        <h2>Education</h2>
 
-    <div class="skills">
-      <span>C#</span>
-      <span>TypeScript</span>
-      <span>Python</span>
-      <span>Java</span>
-      <span>SQL</span>
-      <span>.NET</span>
-      <span>ASP.NET Core</span>
-      <span>Angular</span>
-      <span>React</span>
-      <span>Azure</span>
-      <span>Docker</span>
-      <span>Claude Code</span>
-      <span>GitHub Copilot</span>
-      <span>n8n</span>
-      <span>Architecture</span>
-      <span>Code Reviews</span>
-      <span>Mentoring</span>
-      <span>Agile</span>
-    </div>
-  </section>
-</main>
+        @for (item of cv.education; track item.id) {
+          <p><strong>{{ item.degree }}</strong></p>
+          <p>{{ item.institution }} · {{ item.location }}</p>
+          <p>Graduation Year: {{ item.graduationYear }}</p>
+        }
+      </section>
+
+      <section class="cv-section">
+        <h2>Languages</h2>
+
+        <ul>
+          @for (language of cv.languages; track language.name) {
+            <li>{{ language.name }} — {{ language.level }}</li>
+          }
+        </ul>
+      </section>
+    </section>
+
+    <section class="cv-section">
+      <h2>Technical Skills</h2>
+
+      <h3>Languages</h3>
+      <div class="skills">
+        @for (skill of cv.technicalSkills.languages; track skill) {
+          <span>{{ skill }}</span>
+        }
+      </div>
+
+      <h3>Frameworks & Platforms</h3>
+      <div class="skills">
+        @for (skill of cv.technicalSkills.frameworksAndPlatforms; track skill) {
+          <span>{{ skill }}</span>
+        }
+      </div>
+
+      <h3>AI</h3>
+      <div class="skills">
+        @for (skill of cv.technicalSkills.ai; track skill) {
+          <span>{{ skill }}</span>
+        }
+      </div>
+
+      <h3>Practices</h3>
+      <div class="skills">
+        @for (skill of cv.technicalSkills.practices; track skill) {
+          <span>{{ skill }}</span>
+        }
+      </div>
+    </section>
+  </main>
+}
