@@ -1,17 +1,12 @@
 import { RouterOutlet } from '@angular/router';
-<<<<<<< HEAD
-=======
-import { FormsModule } from '@angular/forms';
->>>>>>> a7b6486 (addChatComponent)
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { timeout, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-<<<<<<< HEAD
-=======
 import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 export interface ChatMessage {
   role: string;
@@ -22,20 +17,13 @@ export interface ChatRequest {
   query: string;
   history: ChatMessage[];
 }
->>>>>>> a7b6486 (addChatComponent)
 
 @Component({
   selector: 'app-root',
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-=======
   imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
->>>>>>> a7b6486 (addChatComponent)
 })
 export class AppComponent implements OnInit {
   cv: any = null;
@@ -43,9 +31,6 @@ export class AppComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-<<<<<<< HEAD
-  private readonly cvUrl = 'https://localhost:7015/cv';
-=======
   query = '';
   history: ChatMessage[] = [];
   chatLoading = false;
@@ -53,7 +38,7 @@ export class AppComponent implements OnInit {
 
   private readonly cvUrl = `${environment.backendUrl}/cv`;
   private readonly chatUrl = `${environment.backendUrl}/cv/chat`;
->>>>>>> a7b6486 (addChatComponent)
+  private readonly chatTestUrl = `${environment.backendUrl}/cv/chatTest`;
 
   constructor(private http: HttpClient) {}
 
@@ -65,12 +50,8 @@ export class AppComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-<<<<<<< HEAD
-    this.http.get<any>(this.cvUrl)
-=======
     this.http
       .get<any>(this.cvUrl)
->>>>>>> a7b6486 (addChatComponent)
       .pipe(
         timeout(20000),
         catchError((error) => {
@@ -83,11 +64,7 @@ export class AppComponent implements OnInit {
 
           this.isLoading = false;
           return of(null);
-<<<<<<< HEAD
-        })
-=======
         }),
->>>>>>> a7b6486 (addChatComponent)
       )
       .subscribe((cv) => {
         if (!cv) {
@@ -98,9 +75,6 @@ export class AppComponent implements OnInit {
         this.isLoading = false;
       });
   }
-<<<<<<< HEAD
-}
-=======
 
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
@@ -122,7 +96,8 @@ export class AppComponent implements OnInit {
     this.query = '';
     this.chatLoading = true;
 
-    this.http.post<ChatMessage>(this.chatUrl, request).subscribe({
+    // this.http.post<ChatMessage>(this.chatUrl, request).subscribe({
+    this.http.post<ChatMessage>(this.chatTestUrl, request).subscribe({
       next: (response) => {
         this.history.push(response);
         this.chatLoading = false;
@@ -142,4 +117,3 @@ export class AppComponent implements OnInit {
     return content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   }
 }
->>>>>>> a7b6486 (addChatComponent)
