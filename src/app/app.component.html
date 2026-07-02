@@ -1,184 +1,207 @@
-<main class="resume-page" *ngIf="cv as resume">
-  <mat-card class="hero-card">
-    <mat-card-header>
-      <mat-card-title>{{ resume.personalInfo.name }}</mat-card-title>
-      <mat-card-subtitle>
-        {{ resume.personalInfo.title }}
-      </mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p class="hero-subtitle" *ngIf="resume.personalInfo.subtitle">
-        {{ resume.personalInfo.subtitle }}
-      </p>
-
-      <div
-        class="contact-row"
-        *ngIf="resume.displaySections?.showContact !== false"
-      >
-        <span *ngIf="resume.personalInfo.location">
-          <mat-icon inline>location_on</mat-icon>
-          {{ resume.personalInfo.location }}
-        </span>
-
-        <a
-          *ngIf="resume.personalInfo.email"
-          [href]="'mailto:' + resume.personalInfo.email"
-        >
-          <mat-icon inline>email</mat-icon>
-          {{ resume.personalInfo.email }}
-        </a>
-
-        <a
-          *ngIf="resume.personalInfo.phone"
-          [href]="'tel:' + resume.personalInfo.phone"
-        >
-          <mat-icon inline>phone</mat-icon>
-          {{ resume.personalInfo.phone }}
-        </a>
-
-        <a
-          *ngFor="let link of resume.personalInfo.links"
-          [href]="link.url"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <mat-icon inline>{{ link.icon || "link" }}</mat-icon>
-          {{ link.label }}
-        </a>
+<main class="resume-page">
+  @if (isLoading) {
+    <mat-card class="status-card loading-card">
+      <mat-icon>hourglass_empty</mat-icon>
+      <div>
+        <strong>Loading CV</strong>
+        <p>Fetching CV from backend...</p>
       </div>
-
-      <mat-chip-set
-        class="hero-chips"
-        *ngIf="
-          resume.displaySections?.showProfileHighlights !== false &&
-          resume.profileHighlights?.length
-        "
-      >
-        <mat-chip *ngFor="let highlight of resume.profileHighlights">
-          {{ highlight }}
-        </mat-chip>
-      </mat-chip-set>
-    </mat-card-content>
-  </mat-card>
-
-  <section class="resume-grid">
-    <aside class="sidebar">
-      <mat-card
-        class="resume-card"
-        *ngIf="resume.displaySections?.featuredSkills !== false"
-      >
-        <div class="section-title">
-          <mat-icon>code</mat-icon>
-          <h2>Skills</h2>
-        </div>
+    </mat-card>
+  }
+  @if (errorMessage) {
+    <mat-card class="status-card error-card">
+      <mat-icon>cloud_off</mat-icon>
+      <div>
+        <strong>Backend unavailable</strong>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </mat-card>
+  }
+  @if (cv) {
+    <ng-container *ngIf="cv as resume">
+      <mat-card class="hero-card">
+        <mat-card-header>
+          <mat-card-title>{{ resume.personalInfo.name }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ resume.personalInfo.title }}
+          </mat-card-subtitle>
+        </mat-card-header>
 
         <mat-card-content>
-          <mat-chip-set>
-            <mat-chip *ngFor="let skill of resume.featuredSkills">
-              {{ skill }}
+          <p class="hero-subtitle" *ngIf="resume.personalInfo.subtitle">
+            {{ resume.personalInfo.subtitle }}
+          </p>
+
+          <div
+            class="contact-row"
+            *ngIf="resume.displaySections?.showContact !== false"
+          >
+            <span *ngIf="resume.personalInfo.location">
+              <mat-icon inline>location_on</mat-icon>
+              {{ resume.personalInfo.location }}
+            </span>
+
+            <a
+              *ngIf="resume.personalInfo.email"
+              [href]="'mailto:' + resume.personalInfo.email"
+            >
+              <mat-icon inline>email</mat-icon>
+              {{ resume.personalInfo.email }}
+            </a>
+
+            <a
+              *ngIf="resume.personalInfo.phone"
+              [href]="'tel:' + resume.personalInfo.phone"
+            >
+              <mat-icon inline>phone</mat-icon>
+              {{ resume.personalInfo.phone }}
+            </a>
+
+            <a
+              *ngFor="let link of resume.personalInfo.links"
+              [href]="link.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <mat-icon inline>{{ link.icon || "link" }}</mat-icon>
+              {{ link.label }}
+            </a>
+          </div>
+
+          <mat-chip-set
+            class="hero-chips"
+            *ngIf="
+              resume.displaySections?.showProfileHighlights !== false &&
+              resume.profileHighlights?.length
+            "
+          >
+            <mat-chip *ngFor="let highlight of resume.profileHighlights">
+              {{ highlight }}
             </mat-chip>
           </mat-chip-set>
         </mat-card-content>
       </mat-card>
 
-      <mat-card
-        class="resume-card"
-        *ngIf="resume.displaySections?.showLanguages !== false"
-      >
-        <div class="section-title">
-          <mat-icon>language</mat-icon>
-          <h2>Languages</h2>
-        </div>
-        <mat-card-content>
-          <div
-            class="simple-list-item"
-            *ngFor="let language of resume.languages"
+      <section class="resume-grid">
+        <aside class="sidebar">
+          <mat-card
+            class="resume-card"
+            *ngIf="resume.displaySections?.featuredSkills !== false"
           >
-            <strong>{{ language.name }}</strong>
-            <span>{{ language.level }}</span>
-          </div>
-        </mat-card-content>
-      </mat-card>
+            <div class="section-title">
+              <mat-icon>code</mat-icon>
+              <h2>Skills</h2>
+            </div>
 
-      <mat-card
-        class="resume-card"
-        *ngIf="resume.displaySections?.showEducation !== false"
-      >
-        <div class="section-title">
-          <mat-icon>school</mat-icon>
-          <h2>Education</h2>
-        </div>
-        <mat-card-content>
-          <div *ngFor="let education of resume.education">
-            <strong>{{ education.degree }}</strong>
-            <p class="muted">
-              {{ education.institution }} · {{ education.location }} ·
-              {{ education.graduationYear }}
-            </p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </aside>
+            <mat-card-content>
+              <mat-chip-set>
+                <mat-chip *ngFor="let skill of resume.featuredSkills">
+                  {{ skill }}
+                </mat-chip>
+              </mat-chip-set>
+            </mat-card-content>
+          </mat-card>
 
-    <section class="main-content">
-      <mat-card class="resume-card">
-        <div class="section-title">
-          <mat-icon>person</mat-icon>
-          <h2>Professional Summary</h2>
-        </div>
-        <mat-card-content>
-          <p>{{ resume.professionalSummary }}</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="resume-card">
-        <div class="section-title">
-          <mat-icon>work</mat-icon>
-          <h2>Experience</h2>
-        </div>
-        <mat-card-content>
-          <article
-            class="experience-item"
-            *ngFor="let experience of resume.workExperience"
+          <mat-card
+            class="resume-card"
+            *ngIf="resume.displaySections?.showLanguages !== false"
           >
-            <header class="experience-header">
-              <div>
-                <h3>{{ experience.role }}</h3>
-                <p class="company">
-                  {{ experience.company }} · {{ experience.location }}
+            <div class="section-title">
+              <mat-icon>language</mat-icon>
+              <h2>Languages</h2>
+            </div>
+            <mat-card-content>
+              <div
+                class="simple-list-item"
+                *ngFor="let language of resume.languages"
+              >
+                <strong>{{ language.name }}</strong>
+                <span>{{ language.level }}</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card
+            class="resume-card"
+            *ngIf="resume.displaySections?.showEducation !== false"
+          >
+            <div class="section-title">
+              <mat-icon>school</mat-icon>
+              <h2>Education</h2>
+            </div>
+            <mat-card-content>
+              <div *ngFor="let education of resume.education">
+                <strong>{{ education.degree }}</strong>
+                <p class="muted">
+                  {{ education.institution }} · {{ education.location }} ·
+                  {{ education.graduationYear }}
                 </p>
               </div>
+            </mat-card-content>
+          </mat-card>
+        </aside>
 
-              <span class="period">
-                {{ experience.periodLabel }}
-              </span>
-            </header>
+        <section class="main-content">
+          <mat-card class="resume-card">
+            <div class="section-title">
+              <mat-icon>person</mat-icon>
+              <h2>Professional Summary</h2>
+            </div>
+            <mat-card-content>
+              <p>{{ resume.professionalSummary }}</p>
+            </mat-card-content>
+          </mat-card>
 
-            <ul>
-              <li *ngFor="let highlight of experience.highlights">
-                {{ highlight }}
-              </li>
-            </ul>
+          <mat-card class="resume-card">
+            <div class="section-title">
+              <mat-icon>work</mat-icon>
+              <h2>Experience</h2>
+            </div>
+            <mat-card-content>
+              <article
+                class="experience-item"
+                *ngFor="let experience of resume.workExperience"
+              >
+                <header class="experience-header">
+                  <div>
+                    <h3>{{ experience.role }}</h3>
+                    <p class="company">
+                      {{ experience.company }} · {{ experience.location }}
+                    </p>
+                  </div>
 
-            <mat-chip-set
-              *ngIf="
-                resume.displaySections?.showExperienceTags !== false &&
-                experience.tags?.length
-              "
-            >
-              <mat-chip *ngFor="let tag of experience.tags">
-                {{ tag }}
-              </mat-chip>
-            </mat-chip-set>
+                  <span class="period">
+                    {{ experience.periodLabel }}
+                  </span>
+                </header>
 
-            <mat-divider></mat-divider>
-          </article>
-        </mat-card-content>
-      </mat-card>
-    </section>
-  </section>
+                <ul>
+                  <li *ngFor="let highlight of experience.highlights">
+                    {{ highlight }}
+                  </li>
+                </ul>
+
+                <mat-chip-set
+                  *ngIf="
+                    resume.displaySections?.showExperienceTags !== false &&
+                    experience.tags?.length
+                  "
+                >
+                  <mat-chip *ngFor="let tag of experience.tags">
+                    {{ tag }}
+                  </mat-chip>
+                </mat-chip-set>
+
+                <mat-divider></mat-divider>
+              </article>
+            </mat-card-content>
+          </mat-card>
+        </section>
+      </section>
+    </ng-container>
+  }
 </main>
+
 <div class="chat-widget">
   <button class="chat-toggle-button" (click)="toggleChat()">
     <svg
