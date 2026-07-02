@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: 'https://your-production-backend-url',
+  backendUrl: 'https://cv-ai-chat-backend-9700.azurewebsites.net',
 };

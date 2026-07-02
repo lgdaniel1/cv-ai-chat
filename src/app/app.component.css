@@ -17,8 +17,6 @@
   background: #fef2f2;
   color: #b91c1c;
   border: 1px solid #fecaca;
-<<<<<<< HEAD
-=======
 }
 
 /* Chat Widget */
@@ -186,5 +184,4 @@
   40% {
     transform: scale(1.0);
   }
->>>>>>> a7b6486 (addChatComponent)
 }

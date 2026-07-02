@@ -96,8 +96,8 @@ export class AppComponent implements OnInit {
     this.query = '';
     this.chatLoading = true;
 
-    // this.http.post<ChatMessage>(this.chatUrl, request).subscribe({
-    this.http.post<ChatMessage>(this.chatTestUrl, request).subscribe({
+    this.http.post<ChatMessage>(this.chatUrl, request).subscribe({
+      //this.http.post<ChatMessage>(this.chatTestUrl, request).subscribe({
       next: (response) => {
         this.history.push(response);
         this.chatLoading = false;
