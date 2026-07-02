@@ -137,5 +137,9 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
+  formatMessage(content: string): string {
+    return content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  }
 }
 >>>>>>> a7b6486 (addChatComponent)

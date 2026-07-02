@@ -128,7 +128,7 @@
       <div class="chat-history">
         @for (message of history; track message) {
           <div class="chat-message" [ngClass]="'message-' + message.role">
-            <p>{{ message.content }}</p>
+            <p [innerHTML]="formatMessage(message.content)"></p>
           </div>
         }
         @if (chatLoading) {
