@@ -66,53 +66,19 @@
     <aside class="sidebar">
       <mat-card
         class="resume-card"
-        *ngIf="resume.displaySections?.showTechnicalSkills !== false"
+        *ngIf="resume.displaySections?.featuredSkills !== false"
       >
         <div class="section-title">
           <mat-icon>code</mat-icon>
           <h2>Skills</h2>
         </div>
 
-        <mat-card-content class="resume-card">
-          <section class="skill-group">
-            <h3>Languages</h3>
-            <mat-chip-set>
-              <mat-chip *ngFor="let skill of resume.technicalSkills.languages">
-                {{ skill }}
-              </mat-chip>
-            </mat-chip-set>
-          </section>
-
-          <section class="skill-group">
-            <h3>Frameworks & Platforms</h3>
-            <mat-chip-set>
-              <mat-chip
-                *ngFor="
-                  let skill of resume.technicalSkills.frameworksAndPlatforms
-                "
-              >
-                {{ skill }}
-              </mat-chip>
-            </mat-chip-set>
-          </section>
-
-          <section class="skill-group">
-            <h3>AI</h3>
-            <mat-chip-set>
-              <mat-chip *ngFor="let skill of resume.technicalSkills.ai">
-                {{ skill }}
-              </mat-chip>
-            </mat-chip-set>
-          </section>
-
-          <section class="skill-group">
-            <h3>Practices</h3>
-            <mat-chip-set>
-              <mat-chip *ngFor="let skill of resume.technicalSkills.practices">
-                {{ skill }}
-              </mat-chip>
-            </mat-chip-set>
-          </section>
+        <mat-card-content>
+          <mat-chip-set>
+            <mat-chip *ngFor="let skill of resume.featuredSkills">
+              {{ skill }}
+            </mat-chip>
+          </mat-chip-set>
         </mat-card-content>
       </mat-card>
 
