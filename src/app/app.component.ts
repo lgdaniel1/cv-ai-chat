@@ -7,6 +7,10 @@ import { timeout, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 export interface ChatMessage {
   role: string;
@@ -21,7 +25,14 @@ export interface ChatRequest {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    MatDividerModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
