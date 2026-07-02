@@ -1,3 +1,7 @@
+/* =========================
+   Page layout
+   ========================= */
+
 .resume-page {
   max-width: 1120px;
   margin: 32px auto;
@@ -5,7 +9,79 @@
   color: #172033;
 }
 
+.resume-grid {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.sidebar,
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* =========================
+   Shared cards
+   ========================= */
+
+mat-card {
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.resume-card {
+  padding: 24px 26px !important;
+}
+
+.resume-card mat-card-content {
+  display: block;
+  padding: 4px 0 0 !important;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.main-content .resume-card mat-card-content {
+  padding-top: 8px !important;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px;
+}
+
+.section-title mat-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  color: #174a82;
+}
+
+.section-title h2 {
+  margin: 0;
+  color: #174a82;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.main-content .section-title h2 {
+  font-size: 1.35rem;
+}
+
+
+/* =========================
+   Hero card
+   ========================= */
+
 .hero-card {
+  min-height: 230px;
   margin-bottom: 24px;
   border-radius: 18px;
   overflow: hidden;
@@ -15,7 +91,7 @@
 }
 
 .hero-card mat-card-header {
-  padding: 32px 32px 8px;
+  padding: 38px 38px 8px;
 }
 
 .hero-card mat-card-title {
@@ -32,7 +108,7 @@
 }
 
 .hero-card mat-card-content {
-  padding: 0 32px 28px;
+  padding: 0 38px 34px !important;
 }
 
 .hero-subtitle {
@@ -69,71 +145,28 @@
 }
 
 .hero-chips {
-  margin-top: 24px;
-}
-
-.hero-chips mat-chip {
-  background: rgba(255, 255, 255, 0.14);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-}
-
-.resume-grid {
-  display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
-  gap: 24px;
-  align-items: start;
-}
-
-.sidebar,
-.main-content {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-mat-card {
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  background: #ffffff;
-}
-
-.sidebar mat-card,
-.main-content mat-card {
-  padding: 4px;
-}
-
-mat-card-content {
-  font-size: 0.95rem;
+  margin-top: 26px;
 }
 
 
-.main-content p {
-  line-height: 1.65;
-}
-
-mat-chip-set {
-  display: block;
-}
-
-mat-chip {
-  margin: 4px;
-  border-radius: 999px;
-  background: #eef5ff;
-  color: #174a82;
-  font-weight: 500;
-}
+/* =========================
+   Skills / sidebar content
+   ========================= */
 
 .skill-group {
-  margin-bottom: 20px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .skill-group:last-child {
+  padding-bottom: 0;
   margin-bottom: 0;
+  border-bottom: none;
 }
 
 .skill-group h3 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 0.9rem;
   font-weight: 700;
   color: #445066;
@@ -158,6 +191,15 @@ mat-chip {
   color: #667085;
   margin: 6px 0 0;
   line-height: 1.5;
+}
+
+
+/* =========================
+   Experience
+   ========================= */
+
+.main-content p {
+  line-height: 1.65;
 }
 
 .experience-item {
@@ -213,41 +255,15 @@ mat-chip {
   margin-top: 22px;
 }
 
-@media (max-width: 850px) {
-  .resume-grid {
-    grid-template-columns: 1fr;
-  }
 
-  .experience-header {
-    flex-direction: column;
-    gap: 4px;
-  }
+/* =========================
+   Angular Material chip overrides
+   ========================= */
 
-  .period {
-    white-space: normal;
-  }
+mat-chip-set {
+  display: block;
 }
 
-@media (max-width: 600px) {
-  .resume-page {
-    margin: 16px auto;
-    padding: 0 12px 36px;
-  }
-
-  .hero-card mat-card-header {
-    padding: 24px 22px 8px;
-  }
-
-  .hero-card mat-card-content {
-    padding: 0 22px 24px;
-  }
-
-  .hero-card mat-card-title {
-    font-size: 1.7rem;
-  }
-}
-
-/* Angular Material 19 / MDC chip overrides */
 :host ::ng-deep .mat-mdc-chip {
   --mdc-chip-container-height: 30px;
   --mdc-chip-label-text-size: 0.82rem;
@@ -259,8 +275,10 @@ mat-chip {
 }
 
 :host ::ng-deep .mat-mdc-standard-chip {
+  margin: 4px !important;
   background-color: #eef5ff !important;
   border: 1px solid #d8e8fb !important;
+  box-shadow: none !important;
 }
 
 :host ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label {
@@ -268,65 +286,28 @@ mat-chip {
   font-weight: 600;
 }
 
-/* Hero chips */
 :host ::ng-deep .hero-card .mat-mdc-standard-chip {
-  background-color: rgba(255, 255, 255, 0.18) !important;
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
 }
 
 :host ::ng-deep .hero-card .mat-mdc-standard-chip .mdc-evolution-chip__text-label {
   color: #ffffff !important;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
-.resume-card {
-  padding: 24px 26px !important;
+:host ::ng-deep .hero-card .mat-mdc-chip-focus-overlay,
+:host ::ng-deep .hero-card .mat-mdc-chip-ripple {
+  display: none !important;
 }
 
-.resume-card mat-card-content {
-  padding: 0 !important;
-}
 
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 20px;
-}
-
-.section-title mat-icon {
-  color: #174a82;
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
-}
-
-.section-title h2 {
-  margin: 0;
-  color: #174a82;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.main-content .section-title h2 {
-  font-size: 1.35rem;
-}
-
-.skill-group {
-  padding-bottom: 18px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-}
-
-.skill-group:last-child {
-  padding-bottom: 0;
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-.mat-mdc-card {
-	padding: 24px 26px !important;
-}
+/* =========================
+   Floating chat widget
+   ========================= */
 
 .chat-widget {
   position: fixed;
@@ -522,7 +503,52 @@ mat-chip {
   }
 }
 
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 850px) {
+  .resume-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .period {
+    white-space: normal;
+  }
+}
+
 @media (max-width: 600px) {
+  .resume-page {
+    margin: 16px auto;
+    padding: 0 12px 36px;
+  }
+
+  .hero-card {
+    min-height: auto;
+  }
+
+  .hero-card mat-card-header {
+    padding: 24px 22px 8px;
+  }
+
+  .hero-card mat-card-content {
+    padding: 0 22px 24px !important;
+  }
+
+  .hero-card mat-card-title {
+    font-size: 1.7rem;
+  }
+
+  .resume-card {
+    padding: 22px 20px !important;
+  }
+
   .chat-widget {
     right: 18px;
     bottom: 18px;

@@ -73,7 +73,7 @@
           <h2>Skills</h2>
         </div>
 
-        <mat-card-content>
+        <mat-card-content class="resume-card">
           <section class="skill-group">
             <h3>Languages</h3>
             <mat-chip-set>
@@ -116,7 +116,10 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card *ngIf="resume.displaySections?.showLanguages !== false">
+      <mat-card
+        class="resume-card"
+        *ngIf="resume.displaySections?.showLanguages !== false"
+      >
         <div class="section-title">
           <mat-icon>language</mat-icon>
           <h2>Languages</h2>
@@ -132,7 +135,10 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card *ngIf="resume.displaySections?.showEducation !== false">
+      <mat-card
+        class="resume-card"
+        *ngIf="resume.displaySections?.showEducation !== false"
+      >
         <div class="section-title">
           <mat-icon>school</mat-icon>
           <h2>Education</h2>
@@ -150,7 +156,7 @@
     </aside>
 
     <section class="main-content">
-      <mat-card>
+      <mat-card class="resume-card">
         <div class="section-title">
           <mat-icon>person</mat-icon>
           <h2>Professional Summary</h2>
@@ -160,7 +166,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card>
+      <mat-card class="resume-card">
         <div class="section-title">
           <mat-icon>work</mat-icon>
           <h2>Experience</h2>
